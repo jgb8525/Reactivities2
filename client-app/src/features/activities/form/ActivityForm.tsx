@@ -1,63 +1,57 @@
 import { Button, Form, Segment } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
 import { ChangeEvent, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 
 
-interface Props{
-    activity: Activity|undefined;  
-    closeForm: ()=>void;
-    createOrEdit: (activity:Activity)=>void;
-    submitting:boolean;
+export default observer(function ActivityForm() {
 
 
-
-
-}
-
-export default function ActivityForm({activity:selectedActivity,closeForm,createOrEdit,submitting}:Props) {
-
-const initialState=selectedActivity ?? {
-  id:'',
-  title: '',
-  category: '',
-  description : '',
-  date: '',
-  city:'',
-  venue:''
-
-} 
-
-const [activity,setActivity] = useState(initialState);
-
-function handleSubmit(){
-  createOrEdit(activity);
-}
-
-function handleInputChange(event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>){
-
-const {name,value} = event.target;
-
-setActivity({...activity,[name]:value});
-
-}
-
-
-
-  return (
-    <Segment clearing>   
-        <Form onSubmit={handleSubmit} autoComplete= 'off' onChange= {handleInputChange}>
-                <Form.Input placeHolder = 'title'  name='title' value = {activity.title}  onChange={handleInputChange}/>
-                <Form.TextArea placeHolder = 'description'   name='description'    value = {activity.description}  onChange={handleInputChange}/>
-                <Form.Input placeHolder = 'category'  name='category' value = {activity.category}  onChange={handleInputChange}/>
-                <Form.Input type='date' placeHolder = 'date' name='date' value = {activity.date}  onChange={handleInputChange}/>
-                <Form.Input placeHolder = 'city' name='city' value = {activity.city}  onChange={handleInputChange}/>
-                <Form.Input placeHolder = 'venue' name='venue' value = {activity.venue}  onChange={handleInputChange} />
-                <Button floated = 'right' positive type ='submit' content = 'submit' />
-                <Button  loading = {submitting} onClick={closeForm} floated = 'right' positive type ='button' content = 'Cancel' />
-
-        </Form>
-
-    </Segment>     
-  )
-}
+  const{activityStore}=useStore();
+  const{selectedActivity,closeForm,createActivity,updateActivity,loading}=activityStore;
+  
+  const initialState=selectedActivity ?? {
+    id:'',
+    title: '',
+    category: '',
+    description : '',
+    date: '',
+    city:'',
+    venue:''
+  
+  } 
+  
+  const [activity,setActivity] = useState(initialState);
+  
+  function handleSubmit(){
+     activity.id ? updateActivity(activity) : createActivity(activity)
+  }
+  
+  function handleInputChange(event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>){
+  
+  const {name,value} = event.target;
+  
+  setActivity({...activity,[name]:value});
+  
+  }
+  
+  
+  
+    return (
+      <Segment clearing>   
+          <Form onSubmit={handleSubmit} autoComplete= 'off' onChange= {handleInputChange}>
+                  <Form.Input placeholder = 'title'  name='title' value = {activity.title}  onChange={handleInputChange}/>
+                  <Form.TextArea placeholder = 'description'   name='description'    value = {activity.description}  onChange={handleInputChange}/>
+                  <Form.Input placeholder = 'category'  name='category' value = {activity.category}  onChange={handleInputChange}/>
+                  <Form.Input type='date' placeholder = 'date' name='date' value = {activity.date}  onChange={handleInputChange}/>
+                  <Form.Input placeholder = 'city' name='city' value = {activity.city}  onChange={handleInputChange}/>
+                  <Form.Input placeholder = 'venue' name='venue' value = {activity.venue}  onChange={handleInputChange} />
+                  <Button floated = 'right' positive type ='submit' content = 'submit' loading = {loading}  />
+                  <Button  onClick={closeForm} floated = 'right' positive type ='button' content = 'Cancel' />
+          </Form>
+  
+      </Segment>     
+    )
+  }
+  ) 
