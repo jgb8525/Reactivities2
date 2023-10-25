@@ -1,6 +1,6 @@
 
 
-import {  Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 import Navbar from './Navbar';
 import { observer } from 'mobx-react-lite';
@@ -11,23 +11,22 @@ function App() {
 
 
   const location = useLocation();
-  
+
 
 
   return (
     <>
-    {location.pathname === '/' ? <HomePage/> : (
+      {location.pathname === '/' ? <HomePage /> : (
         <>
           <Navbar />
-
-      <Container style= {{marginTop: '7em'}}>
-      <Outlet />
-      </Container>
+          <Container style={{ marginTop: '7em' }}>
+            <Outlet />
+          </Container>
         </>
 
 
-     )}
-    
+      )}
+
     </>
 
   )

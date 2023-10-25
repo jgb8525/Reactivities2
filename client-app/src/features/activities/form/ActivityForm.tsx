@@ -31,6 +31,7 @@ export default observer(function ActivityForm() {
   useEffect(()=>{
       if(id) loadActivity(id).then(activity=>setActivity(activity!))
   },[id,loadActivity])
+
   function handleSubmit(){
     if(!activity.id){
       activity.id ==uuid()
@@ -38,7 +39,6 @@ export default observer(function ActivityForm() {
     }
     else{
       updateActivity(activity).then(()=>navigate(`/activities/${activity.id}`) )
-
     }
     
   }
