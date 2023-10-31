@@ -5,16 +5,14 @@ import { Header, Menu } from 'semantic-ui-react'
 export default function ActivityFilters() {
   return (
     <>
-      <Menu vertical size='large' style={{width: '100%', marginTop: 25}}>
-            <Header icon='filter' attached colo='teal' content='Filters' />
-            <Menu.Item content = "All Activities"/>
-            <Menu.Item content = "Im going"/>
-            <Menu.Item content = "im hosting"/>
-        </Menu>
-        <Header/>
-        <Calendar/>
+      <Menu vertical size='large' style={{ width: '100%', marginTop: 25 }}>
+        <Header icon='filter' attached color='teal' content='Filters' />
+        <Menu.Item content="All Activities" />
+        <Menu.Item content="I'm going" />
+        <Menu.Item content="I'm hosting" />
+      </Menu>
+      <Header />
+      <Calendar />
     </>
-      
-    
   )
 }
