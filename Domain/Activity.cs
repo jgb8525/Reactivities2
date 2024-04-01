@@ -1,5 +1,4 @@
 ﻿namespace Domain;
-
 public class Activity
 {
     public Guid Id { get; set; }
@@ -9,7 +8,4 @@ public class Activity
     public string Category { get; set; }
     public string City { get; set; }
     public string Venue { get; set; }
-
-
-
 }

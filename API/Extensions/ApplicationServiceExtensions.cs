@@ -13,12 +13,14 @@ public static class ApplicationServiceExtensions
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.AddDbContext<DataContext>(opt=>
+        services.AddDbContext<DataContext>(opt =>
         {
-        opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
-        services.AddCors(opt=>{
-            opt.AddPolicy("CorsPolicy", policy=>{
+        services.AddCors(opt =>
+        {
+            opt.AddPolicy("CorsPolicy", policy =>
+            {
                 policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
             });
         });

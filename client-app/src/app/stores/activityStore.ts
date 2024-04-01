@@ -30,7 +30,6 @@ export default class ActivityStore {
                 return activities;
             }, {} as { [key: string]: Activity[] })
         )
-
     }
 
     loadActivities = async () => {
@@ -39,19 +38,13 @@ export default class ActivityStore {
             const activities = await agent.Activities.list();
             activities.forEach(activity => {
                 this.setActivity(activity);
+            });
 
-            }
-            );
             this.setLoadingInitial(false);
-
-
-
 
         } catch (error) {
             console.log(error)
             this.setLoadingInitial(false);
-
-
         }
     }
 
@@ -60,18 +53,15 @@ export default class ActivityStore {
         if (activity) {
             this.selectedActivity = activity;
             return activity;
-
         }
         else {
             this.setLoadingInitial(true);
             try {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
-                runInAction(() => this.selectedActivity = activity)
-
+                runInAction(() => this.selectedActivity = activity);
                 this.setLoadingInitial(false);
                 return activity;
-
             } catch (error) {
                 console.log(error);
                 this.setLoadingInitial(false);
@@ -107,7 +97,6 @@ export default class ActivityStore {
             })
 
         } catch (error) {
-
             console.error(error);
             runInAction(() => {
                 this.loading = false;
